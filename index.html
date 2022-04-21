@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src="https://kit.fontawesome.com/c801f9bf36.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@100&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+<!-- here is the hobbies chart -->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart1);
+
+      function drawChart1() {
+        var data1 = google.visualization.arrayToDataTable([
+          ['Hobbies',  'Level'],
+          ['Coding', 9  ],
+          ['Reading',     10],
+          ['Browsing',    7],
+          ['Walking',      6]
+        ]);
+
+        var options1 = {
+          title: '',
+          vAxis: {title: ''},
+          isStacked: true
+        };
+
+        var chart = new google.visualization.SteppedAreaChart(document.getElementById('chart_div1'));
+
+        chart.draw(data1, options1);
+      }
+    </script>
+    
+<!-- here is the technical chart -->
+    <script>
+      google.charts.load('upcoming', {'packages': ['vegachart']}).then(drawChartTechnical);
+      // google.charts.setOnLoadCallback('upcoming', {'packages': ['vegachart']}).then(drawChartTechnical);
+      function drawChartTechnical() {
+        const dataTable = new google.visualization.DataTable();
+        dataTable.addColumn({type: 'string', 'id': 'category'});
+        dataTable.addColumn({type: 'number', 'id': 'amount'});
+        dataTable.addRows([
+          ['Java', 10],
+          ['HTML', 8],
+          ['CSS', 8],
+          ['C', 6],
+          ['C#', 5],
+          ['Python', 5],
+          ['Data Structure', 7],
+          
+        ]);
+
+        const options = {
+          "vega": {
+            "$schema": "https://vega.github.io/schema/vega/v4.json",
+            "width": 500,
+            "height": 200,
+            "padding": 5,
+
+            'data': [{'name': 'table', 'source': 'datatable'}],
+
+            "signals": [
+              {
+                "name": "tooltip",
+                "value": {},
+                "on": [
+                  {"events": "rect:mouseover", "update": "datum"},
+                  {"events": "rect:mouseout",  "update": "{}"}
+                ]
+              }
+            ],
+
+            "scales": [
+              {
+                "name": "xscale",
+                "type": "band",
+                "domain": {"data": "table", "field": "category"},
+                "range": "width",
+                "padding": 0.05,
+                "round": true
+              },
+              {
+                "name": "yscale",
+                "domain": {"data": "table", "field": "amount"},
+                "nice": true,
+                "range": "height"
+              }
+            ],
+
+            "axes": [
+              { "orient": "bottom", "scale": "xscale" },
+              { "orient": "left", "scale": "yscale" }
+            ],
+
+            "marks": [
+              {
+                "type": "rect",
+                "from": {"data":"table"},
+                "encode": {
+                  "enter": {
+                    "x": {"scale": "xscale", "field": "category"},
+                    "width": {"scale": "xscale", "band": 1},
+                    "y": {"scale": "yscale", "field": "amount"},
+                    "y2": {"scale": "yscale", "value": 0}
+                  },
+                  "update": {
+                    "fill": {"value": "steelblue"}
+                  },
+                  "hover": {
+                    "fill": {"value": "lightGray"}
+                  }
+                }
+              },
+              {
+                "type": "text",
+                "encode": {
+                  "enter": {
+                    "align": {"value": "center"},
+                    "baseline": {"value": "bottom"},
+                    "fill": {"value": "#333"}
+                  },
+                  "update": {
+                    "x": {"scale": "xscale", "signal": "tooltip.category", "band": 0.5},
+                    "y": {"scale": "yscale", "signal": "tooltip.amount", "offset": -2},
+                    "text": {"signal": "tooltip.amount"},
+                    "fillOpacity": [
+                      {"test": "datum === tooltip", "value": 0},
+                      {"value": 1}
+                    ]
+                  }
+                }
+              }
+            ]
+          }
+        };
+
+        const chart0 = new google.visualization.VegaChart(document.getElementById('chart-divI'));
+        chart0.draw(dataTable, options);
+      }
+    </script>
+    <!-- here is the personal skills chart -->
+   
+  <head>
+    <!-- <script src='https://www.gstatic.com/charts/loader.js'></script> -->
+    <script>
+      google.charts.load('upcoming', {'packages': ['vegachart']}).then(drawChart);
+
+      function drawChart() {
+        const dataTable = new google.visualization.DataTable();
+        dataTable.addColumn({type: 'string', 'id': 'category'});
+        dataTable.addColumn({type: 'number', 'id': 'amount'});
+        dataTable.addRows([
+         
+          
+          ['Farsi(Persian Dari)', 10],
+          ['Math', 7],
+          ['Flexable and Adaptable', 10],
+          ['Team Work', 9],
+          ['Self Motivated', 10],
+          ['Computer Skills', 8],
+        ]);
+
+        const options = {
+          "vega": {
+            "$schema": "https://vega.github.io/schema/vega/v4.json",
+            "width": 500,
+            "height": 200,
+            "padding": 5,
+
+            'data': [{'name': 'table', 'source': 'datatable'}],
+
+            "signals": [
+              {
+                "name": "tooltip",
+                "value": {},
+                "on": [
+                  {"events": "rect:mouseover", "update": "datum"},
+                  {"events": "rect:mouseout",  "update": "{}"}
+                ]
+              }
+            ],
+
+            "scales": [
+              {
+                "name": "xscale",
+                "type": "band",
+                "domain": {"data": "table", "field": "category"},
+                "range": "width",
+                "padding": 0.05,
+                "round": true
+              },
+              {
+                "name": "yscale",
+                "domain": {"data": "table", "field": "amount"},
+                "nice": true,
+                "range": "height"
+              }
+            ],
+
+            "axes": [
+              { "orient": "bottom", "scale": "xscale" },
+              { "orient": "left", "scale": "yscale" }
+            ],
+
+            "marks": [
+              {
+                "type": "rect",
+                "from": {"data":"table"},
+                "encode": {
+                  "enter": {
+                    "x": {"scale": "xscale", "field": "category"},
+                    "width": {"scale": "xscale", "band": 1},
+                    "y": {"scale": "yscale", "field": "amount"},
+                    "y2": {"scale": "yscale", "value": 0}
+                  },
+                  "update": {
+                    "fill": {"value": "steelblue"}
+                  },
+                  "hover": {
+                    "fill": {"value": "lightGray"}
+                  }
+                }
+              },
+              {
+                "type": "text",
+                "encode": {
+                  "enter": {
+                    "align": {"value": "center"},
+                    "baseline": {"value": "bottom"},
+                    "fill": {"value": "#333"}
+                  },
+                  "update": {
+                    "x": {"scale": "xscale", "signal": "tooltip.category", "band": 0.5},
+                    "y": {"scale": "yscale", "signal": "tooltip.amount", "offset": -2},
+                    "text": {"signal": "tooltip.amount"},
+                    "fillOpacity": [
+                      {"test": "datum === tooltip", "value": 0},
+                      {"value": 1}
+                    ]
+                  }
+                }
+              }
+            ]
+          }
+        };
+
+        const chart = new google.visualization.VegaChart(document.getElementById('chart-div'));
+        chart.draw(dataTable, options);
+      }
+    </script>
+  </head>
+
+ 
+
+
+
+   
+
+    <title>Interactive Resume</title>
+</head>
+
+<body>
+
+    <div class="nameBar">
+        <div class="img"> <img src="./images/IMG-5913-removebg-preview.png" width="200px" alt=""></div>
+  
+        <div class="name">
+            <H1>Mahdyah Hassanyar</H1>
+            <h2>Software Engineer</h2>
+        </div>
+
+    </div>
+
+
+
+    <div class="container">
+
+        <div class="sidebar">
+
+            <div class="links">
+                <div class="address"> <i class="fa-solid fa-map-location-dot"></i> <a href="https://en.wikipedia.org/wiki/Atlanta"> Atlanta, Georgia</a></div>
+                <div class="linkedin"><i class="fa-brands fa-linkedin"></i><a href="https://www.linkedin.com/in/mahdyah-hassanyar-823a25175/"> www.linkedin.com/in/mahdyah-hassanyar</a></div>
+                <div class="github"><i class="fa-brands fa-github"></i> <a href="https://github.com/mahdyah?tab=repositories">github.com/mahdyah</a></div>
+            </div>
+
+            <div class="title"> <h2>SKILLS</h2></div>
+            <div class="skills">
+              <div class="tech"> <h3>TECHNICAL</h3></div>
+              <div id="chart-divI" style="width: 700px; height: 250px;"></div>
+              <div class="personal"> <h3>PERSONAL</h3></div>
+              <div id="chart-div" style="width: 700px; height: 250px;"></div>
+            </div>
+        </div>
+
+
+
+        <div class="content">
+
+<div class="school">
+<div class="sub"> <h2><i class="fa-solid fa-graduation-cap"></i>    EDUCATION</h2></div>
+<div class="text1"><p> Georgia State University
+Computer Science
+Associate Degree </p></div>
+</div>
+
+
+<div class="hobbies">
+<div class="sub"> <h2> HOBBIES</h2></div>
+
+<div id="chart_div1" style="width: 900px; height: 500px;"></div>
+
+<!-- <div class="accom"><h2>ACCOMPLISHMENTS</h2></div> -->
+</div>
+
+</div>
+
+
+        
+    </div>
+
+</body>
+
+</html>
